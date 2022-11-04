@@ -1,4 +1,27 @@
-function TopLayout({btnSearch}) {
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+
+function TopLayout({ btnSearch }) {
+
+    const { getUserData, getUserLoading, getUserErr } = useSelector(state => state.userReducer);
+
+    const logoutHandle = () => {
+        console.log('Di klik');
+        localStorage.removeItem('token');
+        window.location.replace('/');
+    }
+
+    useEffect(() => {
+        try {
+            document.getElementById('logout').addEventListener('click', () => {
+                logoutHandle();
+            });
+        } catch (error) {
+            console.log(error);
+        }
+        // window.location.reload();
+    })
+
     return (
         <div className="row row__mod top-layout">
             <div className="col-12 fixed-top">
@@ -36,9 +59,21 @@ function TopLayout({btnSearch}) {
                                             <li className="nav-item">
                                                 <a className="nav-link" href="/#faq">FAQ</a>
                                             </li>
-                                            <li id="end-nav" className="nav-item pe-0">
-                                                <a className="nav-link btn btn-success d-inline-block" href="#" >Register</a>
-                                            </li>
+                                            {getUserData ? (
+                                                <li className="nav-item dropdown" style={{ listStyle: 'none' }}>
+                                                    <a className="nav-link dropdown-toggle" href={'/'} role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        {getUserData !== '' ? getUserData.email : 'My Account'}
+                                                    </a>
+                                                    <ul className="dropdown-menu">
+                                                        <li className="dropdown-item">{getUserData !== '' ? getUserData.username : 'Username'}</li>
+                                                        <li><button id='logout' className="dropdown-item">Logout</button></li>
+                                                    </ul>
+                                                </li>
+                                            ) : (
+                                                <li id="end-nav" className="nav-item pe-0">
+                                                    <a className="nav-link btn btn-success d-inline-block" href="/login" >Login With Google</a>
+                                                </li>
+                                            )}
                                         </ul>
                                     </div>
                                 </div>

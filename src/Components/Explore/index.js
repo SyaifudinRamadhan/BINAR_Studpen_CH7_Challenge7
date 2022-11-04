@@ -1,13 +1,13 @@
 import flatpickr from "flatpickr";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Select from 'react-select';
 import { TopLayout } from "../../Components";
 import { useDispatch, useSelector } from "react-redux";
 import { getListCar } from "../../actions/CarAction";
 import { CarCard } from "../../Components";
 
-let drvType = null;
 let numCol = [1,2,3,4,5,6,7,8,9,10,11,12];
+let  drvType = {}
 
 function Explore() {
 
@@ -19,8 +19,8 @@ function Explore() {
         { value: 2, label: "lepas Kunci" }
     ];
 
-    function selectDrv(selectedOptions) {
-        drvType = selectedOptions;
+    function selectDrv(selectedOption){
+        drvType = selectedOption
     }
 
     useEffect(() => {
@@ -37,10 +37,7 @@ function Explore() {
 
         dispatch(getListCar());
 
-        // change background color on edit filter
-        document.addEventListener('click', evt => {
-            console.log(evt)
-        });
+        // change background color on edit filter\
 
         let allNoteBox = document.getElementById('search-box-child').getElementsByTagName('*');
         for (let i = 0; i < allNoteBox.length; i++) {
