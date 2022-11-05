@@ -31,7 +31,7 @@ const destroyToken = (token) => {
 
 let loopRender = 0;
 
-function ProtectedRoute({children}) {
+function ProtectedRoute({children, active = true}) {
 
     const dispatch = useDispatch();    
 
@@ -51,10 +51,12 @@ function ProtectedRoute({children}) {
                         destroyToken(token);
                         setNav('/login')
                     }
-                    if(loopRender === 0){
-                        dispatch(getUserData(json.user));
-                        loopRender+=1;
-                    }
+                    console.log('data baru didapaT', loopRender);
+                    dispatch(getUserData(json.user));
+                    // if(loopRender === 0){
+                        
+                    //     loopRender+=1;
+                    // }
                 }).catch(err => {
                     console.log(err);
                     destroyToken(token);
@@ -72,7 +74,7 @@ function ProtectedRoute({children}) {
     }, [dispatch])
 
     return (
-        navigate === '' ? children : <Navigate to={navigate} />
+        navigate === '' ? children : (active ? <Navigate to={navigate} /> : children)
     )
 
 }

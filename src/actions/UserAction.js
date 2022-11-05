@@ -26,7 +26,7 @@ export function getUserData(data) {
                 type: GET_USER_DATA,
                 payloads: {
                     loading: false,
-                    data: {},
+                    data: false,
                     errMsg: false
                 }
             })

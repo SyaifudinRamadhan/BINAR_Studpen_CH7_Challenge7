@@ -12,6 +12,7 @@ function TopLayout({ btnSearch }) {
     }
 
     useEffect(() => {
+        console.log(getUserData);
         try {
             document.getElementById('logout').addEventListener('click', () => {
                 logoutHandle();
@@ -71,7 +72,7 @@ function TopLayout({ btnSearch }) {
                                                 </li>
                                             ) : (
                                                 <li id="end-nav" className="nav-item pe-0">
-                                                    <a className="nav-link btn btn-success d-inline-block" href="/login" >Login With Google</a>
+                                                    <a className="nav-link btn btn-success d-inline-block" href="/register" >Register With Google</a>
                                                 </li>
                                             )}
                                         </ul>

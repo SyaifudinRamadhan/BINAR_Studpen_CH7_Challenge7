@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import { Home, NotFound, Explore, ProtectedRoute, Login } from './Components';
+import { Home, NotFound, Explore, ProtectedRoute, Login, Register } from './Components';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 function App() {
@@ -8,8 +8,16 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={
-          <Home></Home>
+          <ProtectedRoute active={false}>
+            <Home></Home>
+          </ProtectedRoute>
         }></Route>
+        <Route
+          path='/register'
+          element={
+            <Register></Register>
+          } >
+        </Route>
         <Route
           path='/login'
           element={

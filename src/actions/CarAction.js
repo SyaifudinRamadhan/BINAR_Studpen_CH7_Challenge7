@@ -49,7 +49,7 @@ export function getListCar(url, regex) {
                 type: GET_LIST_CAR,
                 payloads: {
                     loading: false,
-                    data: {},
+                    data: false,
                     errMsg: false
                 }
             })

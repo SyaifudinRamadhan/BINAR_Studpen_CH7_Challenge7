@@ -23,7 +23,27 @@ const ajaxLogin = async (username, password) => {
   return res;
 }
 
-function Login() {
+const ajaxRegister = async (username, first_name, last_name, email, password) => {
+  const url = 'http://localhost:3100/api/v1/register';
+  const res = await fetch(
+    url, {
+    method: "POST",
+    mode: "cors",
+    cache: "no-cache",
+    credentials: "same-origin",
+    headers: {
+      'Content-type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
+    },
+    body: JSON.stringify({
+      username, password, first_name, last_name, email
+    })
+  }
+  );
+  return res;
+}
+
+function Register() {
 
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState('');
@@ -93,29 +113,35 @@ function Login() {
     event.preventDefault();
     setLoading(true);
     let form = new FormData(this);
-    ajaxLogin(form.get('username'), form.get('password')).then(result => {
-      result.json().then((json) => {
-        if (result.status === 200) {
-          localStorage.setItem('token', json.token);
-          setLogin(true)
-          // localStorage.setItem('user', json.users.id)
-        } else {
-          setAlert('Username atau password tidak sesuai')
-          setLoading(false);
-        }
-      }).catch(err => {
-        console.log(err);
-      })
-    }).catch(
-      error => console.log(error)
-    );
+    ajaxRegister(form.get('username'), form.get('first_name'), form.get('last_name'), form.get('email'), form.get('password')).then(res => {
+      ajaxLogin(form.get('username'), form.get('password')).then(result => {
+        result.json().then((json) => {
+          if (result.status === 200) {
+            localStorage.setItem('token', json.token);
+            setLogin(true)
+            // localStorage.setItem('user', json.users.id)
+          } else {
+            setAlert('Username atau password tidak sesuai')
+            setLoading(false);
+          }
+        }).catch(err => {
+          console.log(err);
+        })
+      }).catch(
+        error => console.log(error)
+      );
+    }).catch(err => {
+      setAlert('Koneksi server bermasalah')
+      setLoading(false);
+    })
+    
   }
 
   useEffect(() => {
     // console.log(process.env.REACT_APP_GOOGLE_CLIENT_ID);
     localStorage.getItem('token') !== null ? setLogin(true) : console.log('token found');
     try {
-      document.getElementById('login-form').addEventListener('submit', handleSubmit);
+      document.getElementById('register-form').addEventListener('submit', handleSubmit);
     } catch (error) {
       console.log(error);
     }
@@ -132,15 +158,27 @@ function Login() {
               </div>
             ) : ''
           }
-          <h2 className='text-center'>Login</h2>
-          <form id='login-form' method='POST' className='w-50 mx-auto'>
+          <h2 className='text-center'>Register</h2>
+          <form id='register-form' method='POST' className='w-50 mx-auto'>
             <div className="mb-3 text-start">
               <label htmlFor="exampleInputEmail1" className="form-label">Username</label>
               <input type="text" className="form-control" name='username' required id="exampleInputEmail1" aria-describedby="emailHelp" />
             </div>
             <div className="mb-3 text-start">
-              <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
-              <input type="password" className="form-control" name='password' required id="exampleInputPassword1" />
+              <label htmlFor="exampleInputEmail2" className="form-label">First Name</label>
+              <input type="text" className="form-control" name='first_name' required id="exampleInputEmail2" aria-describedby="emailHelp" />
+            </div>
+            <div className="mb-3 text-start">
+              <label htmlFor="exampleInputEmail3" className="form-label">Last Name</label>
+              <input type="text" className="form-control" name='last_name' required id="exampleInputEmail3" aria-describedby="emailHelp" />
+            </div>
+            <div className="mb-3 text-start">
+              <label htmlFor="exampleInputEmail4" className="form-label">Email</label>
+              <input type="email" className="form-control" name='email' required id="exampleInputEmail4" aria-describedby="emailHelp" />
+            </div>
+            <div className="mb-3 text-start">
+              <label htmlFor="exampleInputPassword5" className="form-label">Password</label>
+              <input type="password" className="form-control" name='password' required id="exampleInputPassword5" />
             </div>
             {loading ? (
               <div className='text-center'>
@@ -152,14 +190,14 @@ function Login() {
             ) :
               (
                 <div className='text-center'>
-                  <button type="submit" className="btn btn-primary">Login</button>
+                  <button type="submit" className="btn btn-primary">Register</button>
                 </div>
               )}
           </form>
           <div className='text-center mt-5'>
             <GoogleLogin
               clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
-              buttonText="Login With Google"
+              buttonText="Register With Google"
               onSuccess={handleSuccessGoogle}
               onFailure={handleFailureGoogle}
               cookiePolicy={"single_host_origin"}
@@ -174,4 +212,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;
