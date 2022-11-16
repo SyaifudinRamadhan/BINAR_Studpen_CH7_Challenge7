@@ -1,5 +1,6 @@
 /* eslint-disable no-unreachable */
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { getUserData } from '../../actions/UserAction';
@@ -77,6 +78,11 @@ function ProtectedRoute({children, active = true}) {
         navigate === '' ? children : (active ? <Navigate to={navigate} /> : children)
     )
 
+}
+
+ProtectedRoute.propTypes = {
+    children: PropTypes.node.isRequired,
+    active: PropTypes.node.isRequired
 }
 
 export { ProtectedRoute };

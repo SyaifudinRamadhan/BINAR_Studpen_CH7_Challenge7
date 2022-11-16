@@ -1,3 +1,6 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+
 const currencyEncode = num => {
     let strNum = num.toString().split('').reverse();
     let result = [];
@@ -27,7 +30,7 @@ function CarCard({carName, carType, img, rentPrice, desc, opt, cpty, carYear }) 
                     {rentPrice == undefined ? <h4></h4> : <h4 className="fw-bold">Rp. {currencyEncode(rentPrice)} /hari</h4>}
                     <div className="card-text">
                         {desc == undefined ? <div className="rounded-pill bg-skeleton mb-2 p1-skeleton"></div> : <p className="card-text">{desc}</p>}
-                        {cpty == undefined ? '<div className="rounded-pill bg-skeleton mb-2 p2-skeleton"></div>' : <p className="card-text"><i className="bi bi-people"></i> {cpty} Orang</p>}
+                        {cpty == undefined ? <div className="rounded-pill bg-skeleton mb-2 p2-skeleton"></div> : <p className="card-text"><i className="bi bi-people"></i> {cpty} Orang</p>}
                         {opt == undefined ? <div className="rounded-pill bg-skeleton mb-2 p3-skeleton"></div> : <p className="card-text"><i className="bi bi-gear"></i> {opt} </p>}
                         {carYear == undefined ? <div className="rounded-pill bg-skeleton mb-2 p3-skeleton"></div> : <p className="card-text"><i className="bi bi-calendar"></i> Tahun {carYear}</p>}
                     </div>
@@ -37,5 +40,17 @@ function CarCard({carName, carType, img, rentPrice, desc, opt, cpty, carYear }) 
         </div>
     )
 }
+
+CarCard.propTypes = {
+    carName: PropTypes.node.isRequired, 
+    carType: PropTypes.node.isRequired, 
+    img: PropTypes.node.isRequired, 
+    rentPrice: PropTypes.node.isRequired, 
+    desc: PropTypes.node.isRequired, 
+    opt: PropTypes.node.isRequired, 
+    cpty: PropTypes.node.isRequired, 
+    carYear: PropTypes.node.isRequired
+}
+
 
 export default CarCard;

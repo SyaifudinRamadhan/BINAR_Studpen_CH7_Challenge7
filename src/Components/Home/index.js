@@ -1,3 +1,4 @@
+import React from 'react';
 import { useEffect } from "react";
 import { TopLayout } from "../../Components"
 
@@ -8,7 +9,6 @@ function Home() {
         let defaultMargin = 24.872;
         let firstMargin = -24;
         let different = -50;
-        let currentMargin = firstMargin;
         let index = 0;
 
         let rowCarousel = document.getElementById('row-carousel');
@@ -119,11 +119,11 @@ function Home() {
             let currentWidth = document.body.clientWidth;
             console.log(currentWidth);
 
-            try { setChangeTransform(currentWidth) } catch (error) { };
+            try { setChangeTransform(currentWidth) } catch (error) { console.log(error) }
 
             // Auto load carousel
             setInterval(function () {
-                try { left() } catch (error) { };
+                try { left() } catch (error) { console.log(error) }
             }, 5000);
         }
 
@@ -141,7 +141,7 @@ function Home() {
                 }
             });
         } catch (error) {
-
+            console.log(error);
         }
 
         window.addEventListener('resize', function () {
@@ -149,7 +149,7 @@ function Home() {
             let currentWidth = this.document.body.clientWidth;
             console.log(currentWidth);
 
-            try { setChangeTransform(currentWidth) } catch (error) { };
+            try { setChangeTransform(currentWidth) } catch (error) { console.log(error) }
         });
 
         autoLoad();
@@ -443,13 +443,13 @@ function Home() {
                                             data-bs-parent="#accordionExample"
                                         >
                                             <div className="accordion-body">
-                                                <strong>This is the first item's accordion body.</strong>
+                                                <strong>This is the first items accordion body.</strong>
                                                 It is shown by default, until the collapse plugin adds the
                                                 appropriate classNamees that we use to style each element.
                                                 These classNamees control the overall appearance, as well as
                                                 the showing and hiding via CSS transitions. You can modify
                                                 any of this with custom CSS or overriding our default
-                                                variables. It's also worth noting that just about any HTML
+                                                variables. Its also worth noting that just about any HTML
                                                 can go within the <code>.accordion-body</code>, though the
                                                 transition does limit overflow.
                                             </div>
@@ -475,13 +475,13 @@ function Home() {
                                             data-bs-parent="#accordionExample"
                                         >
                                             <div className="accordion-body">
-                                                <strong>This is the second item's accordion body.</strong>
+                                                <strong>This is the second item accordion body.</strong>
                                                 It is hidden by default, until the collapse plugin adds
                                                 the appropriate classNamees that we use to style each element.
                                                 These classNamees control the overall appearance, as well as
                                                 the showing and hiding via CSS transitions. You can modify
                                                 any of this with custom CSS or overriding our default
-                                                variables. It's also worth noting that just about any HTML
+                                                variables. Its also worth noting that just about any HTML
                                                 can go within the <code>.accordion-body</code>, though the
                                                 transition does limit overflow.
                                             </div>
@@ -507,13 +507,13 @@ function Home() {
                                             data-bs-parent="#accordionExample"
                                         >
                                             <div className="accordion-body">
-                                                <strong>This is the third item's accordion body.</strong>
+                                                <strong>This is the third items accordion body.</strong>
                                                 It is hidden by default, until the collapse plugin adds
                                                 the appropriate classNamees that we use to style each element.
                                                 These classNamees control the overall appearance, as well as
                                                 the showing and hiding via CSS transitions. You can modify
                                                 any of this with custom CSS or overriding our default
-                                                variables. It's also worth noting that just about any HTML
+                                                variables. Its also worth noting that just about any HTML
                                                 can go within the <code>.accordion-body</code>, though the
                                                 transition does limit overflow.
                                             </div>
@@ -539,13 +539,13 @@ function Home() {
                                             data-bs-parent="#accordionExample"
                                         >
                                             <div className="accordion-body">
-                                                <strong>This is the third item's accordion body.</strong>
+                                                <strong>This is the third items accordion body.</strong>
                                                 It is hidden by default, until the collapse plugin adds
                                                 the appropriate classNamees that we use to style each element.
                                                 These classNamees control the overall appearance, as well as
                                                 the showing and hiding via CSS transitions. You can modify
                                                 any of this with custom CSS or overriding our default
-                                                variables. It's also worth noting that just about any HTML
+                                                variables. Its also worth noting that just about any HTML
                                                 can go within the <code>.accordion-body</code>, though the
                                                 transition does limit overflow.
                                             </div>
@@ -571,13 +571,13 @@ function Home() {
                                             data-bs-parent="#accordionExample"
                                         >
                                             <div className="accordion-body">
-                                                <strong>This is the third item's accordion body.</strong>
+                                                <strong>This is the third items accordion body.</strong>
                                                 It is hidden by default, until the collapse plugin adds
                                                 the appropriate classNamees that we use to style each element.
                                                 These classNamees control the overall appearance, as well as
                                                 the showing and hiding via CSS transitions. You can modify
                                                 any of this with custom CSS or overriding our default
-                                                variables. It's also worth noting that just about any HTML
+                                                variables. Its also worth noting that just about any HTML
                                                 can go within the <code>.accordion-body</code>, though the
                                                 transition does limit overflow.
                                             </div>

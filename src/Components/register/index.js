@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState, useEffect } from 'react';
 import { GoogleLogin } from "react-google-login";
 import { Navigate } from 'react-router-dom';
@@ -113,7 +114,7 @@ function Register() {
     event.preventDefault();
     setLoading(true);
     let form = new FormData(this);
-    ajaxRegister(form.get('username'), form.get('first_name'), form.get('last_name'), form.get('email'), form.get('password')).then(res => {
+    ajaxRegister(form.get('username'), form.get('first_name'), form.get('last_name'), form.get('email'), form.get('password')).then(() => {
       ajaxLogin(form.get('username'), form.get('password')).then(result => {
         result.json().then((json) => {
           if (result.status === 200) {
@@ -130,7 +131,7 @@ function Register() {
       }).catch(
         error => console.log(error)
       );
-    }).catch(err => {
+    }).catch(() => {
       setAlert('Koneksi server bermasalah')
       setLoading(false);
     })

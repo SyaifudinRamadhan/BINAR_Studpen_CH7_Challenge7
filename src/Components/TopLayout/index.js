@@ -1,9 +1,11 @@
+import React from 'react';
+import PropTypes from 'prop-types';
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 function TopLayout({ btnSearch }) {
 
-    const { getUserData, getUserLoading, getUserErr } = useSelector(state => state.userReducer);
+    const { getUserData } = useSelector(state => state.userReducer);
 
     const logoutHandle = () => {
         console.log('Di klik');
@@ -113,6 +115,10 @@ function TopLayout({ btnSearch }) {
             </div>
         </div>
     );
+}
+
+TopLayout.propTypes = {
+    btnSearch: PropTypes.node.isRequired
 }
 
 export default TopLayout;
