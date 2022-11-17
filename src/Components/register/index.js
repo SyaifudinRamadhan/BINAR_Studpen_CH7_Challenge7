@@ -1,8 +1,13 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { GoogleLogin } from "react-google-login";
+// import { GoogleLogin } from "react-google-login";
 import { Navigate } from 'react-router-dom';
 import '../../index.css';
+
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import { GoogleLogin } from '@react-oauth/google';
+import jwt from 'jwt-decode'
+
 
 const ajaxLogin = async (username, password) => {
   const url = 'https://binarstudpench6challenge6-production.up.railway.app/api/v1/login';
@@ -63,9 +68,8 @@ function Register() {
     //     .finally(() => setIsLoading(false));
     //}
     console.log(response);
-    console.log(response.profileObj.name);
-    console.log(response.profileObj.email);
-    console.log(response.profileObj.imageUrl);
+    const userData = jwt(response.credential);
+    console.log(userData);
     const url = 'https://binarstudpench6challenge6-production.up.railway.app/api/v1/loginGoogle';
     const res = await fetch(
       url, {
@@ -78,13 +82,13 @@ function Register() {
         'Access-Control-Allow-Origin': '*'
       },
       body: JSON.stringify({
-        username: response.profileObj.name,
+        username: userData.name,
         password: "",
-        email: response.profileObj.email,
-        first_name: response.profileObj.givenName,
-        last_name: response.profileObj.familyName,
-        googleId: response.googleId,
-        googleToken: response.accessToken
+        email: userData.email,
+        first_name: userData.given_name,
+        last_name: userData.family_name,
+        googleId: response.clientId,
+        googleToken: response.clientId
       })
     }
     );
@@ -135,7 +139,7 @@ function Register() {
       setAlert('Koneksi server bermasalah')
       setLoading(false);
     })
-    
+
   }
 
   useEffect(() => {
@@ -196,13 +200,16 @@ function Register() {
               )}
           </form>
           <div className='text-center mt-5'>
-            <GoogleLogin
-              clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
-              buttonText="Register With Google"
-              onSuccess={handleSuccessGoogle}
-              onFailure={handleFailureGoogle}
-              cookiePolicy={"single_host_origin"}
-            />
+            <GoogleOAuthProvider className="text-center" clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
+              <GoogleLogin theme='filled_black' logo_alignment='center' shape='pill'
+                onSuccess={credentialResponse => {
+                  handleSuccessGoogle(credentialResponse);
+                }}
+                onError={() => {
+                  handleFailureGoogle("error login")
+                }}
+              />;
+            </GoogleOAuthProvider>;
           </div>
 
         </div>
