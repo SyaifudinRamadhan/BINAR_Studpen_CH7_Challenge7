@@ -7,7 +7,7 @@ import { getUserData } from '../../actions/UserAction';
 import '../../index.css';
 
 const ajaxGetUser = async (jwt) => {
-    const url = 'http://localhost:3100/api/v1/who-am-i';
+    const url = 'https://binarstudpench6challenge6-production.up.railway.app/api/v1/who-am-i';
     const res = await fetch(
         url, {
         method: "GET",

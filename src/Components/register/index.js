@@ -5,7 +5,7 @@ import { Navigate } from 'react-router-dom';
 import '../../index.css';
 
 const ajaxLogin = async (username, password) => {
-  const url = 'http://localhost:3100/api/v1/login';
+  const url = 'https://binarstudpench6challenge6-production.up.railway.app/api/v1/login';
   const res = await fetch(
     url, {
     method: "POST",
@@ -25,7 +25,7 @@ const ajaxLogin = async (username, password) => {
 }
 
 const ajaxRegister = async (username, first_name, last_name, email, password) => {
-  const url = 'http://localhost:3100/api/v1/register';
+  const url = 'https://binarstudpench6challenge6-production.up.railway.app/api/v1/register';
   const res = await fetch(
     url, {
     method: "POST",
@@ -66,7 +66,7 @@ function Register() {
     console.log(response.profileObj.name);
     console.log(response.profileObj.email);
     console.log(response.profileObj.imageUrl);
-    const url = 'http://localhost:3100/api/v1/loginGoogle';
+    const url = 'https://binarstudpench6challenge6-production.up.railway.app/api/v1/loginGoogle';
     const res = await fetch(
       url, {
       method: "POST",
